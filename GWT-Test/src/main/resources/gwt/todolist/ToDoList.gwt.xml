@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='todolist'>
+    <!-- Inherit the core Web Toolkit stuff.                        -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.gwt.junit.JUnit' />
+    <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+    
+    <!-- Specify the app entry point class.                         -->
+    <entry-point class='gwt.todolist.client.ToDoList'/>
+    <source path='client' />
+    <source path='shared' />
+</module>  

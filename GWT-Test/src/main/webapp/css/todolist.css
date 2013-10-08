@@ -1,0 +1,13 @@
+#toDoWidget {
+    width: 250px;
+    margin: 100px auto;
+}
+
+.checkbox {
+    display: block;
+    clear: both;
+}
+
+.removed {
+    text-decoration: line-through;
+}
