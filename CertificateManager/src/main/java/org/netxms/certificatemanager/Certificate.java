@@ -3,19 +3,27 @@ package org.netxms.certificatemanager;
 import java.security.PrivateKey;
 
 public class Certificate {
-    private final String alias;
+    private final Subject subject;
     private final PrivateKey privateKey;
 
-    public Certificate(String alias, PrivateKey privateKey) {
-        this.alias = alias;
+    public Certificate(Subject subject, PrivateKey privateKey) {
+        this.subject = subject;
         this.privateKey = privateKey;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getCommonName() {
+        return subject.getCommonName();
     }
 
-    public PrivateKey getPrivateKey() {
-        return privateKey;
+    public String getOrganization() {
+        return subject.getOrganization();
+    }
+
+    public String getState() {
+        return subject.getState();
+    }
+
+    public String getCountry() {
+        return subject.getCountry();
     }
 }

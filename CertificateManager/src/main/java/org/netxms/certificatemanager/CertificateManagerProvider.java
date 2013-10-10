@@ -3,16 +3,15 @@ package org.netxms.certificatemanager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import java.security.*;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
 public class CertificateManagerProvider {
     private static volatile CertificateManager manager;
     private final CertificateManagerProviderListener listener;
+    private String keyStorePass = "";
 
     private CertificateManagerProvider(CertificateManagerProviderListener listener) {
         this.listener = listener;
@@ -40,20 +39,23 @@ public class CertificateManagerProvider {
 
             certs = getCertsFromKeyStore(keyStore);
         } catch(NoSuchProviderException e) {
-            certs = new Certificate[0];
             e.printStackTrace();
+            certs = new Certificate[0];
         } catch(KeyStoreException e) {
-            certs = new Certificate[0];
             e.printStackTrace();
+            certs = new Certificate[0];
         } catch(CertificateException e) {
-            certs = new Certificate[0];
             e.printStackTrace();
+            certs = new Certificate[0];
         } catch(NoSuchAlgorithmException e) {
-            certs = new Certificate[0];
             e.printStackTrace();
+            certs = new Certificate[0];
         } catch(IOException e) {
-            certs = new Certificate[0];
             e.printStackTrace();
+            certs = new Certificate[0];
+        } catch (UnrecoverableEntryException e) {
+            e.printStackTrace();
+            certs = new Certificate[0];
         }
 
         return new CertificateManager(certs);
@@ -75,13 +77,13 @@ public class CertificateManagerProvider {
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         String ksLocation = listener.requestKeyStoreLocation();
-        String ksPassword = listener.requestKeyStorePassword();
+        keyStorePass = listener.requestKeyStorePassword();
 
         FileInputStream fis;
         try {
             fis = new FileInputStream(ksLocation);
             try {
-                ks.load(fis, ksPassword.toCharArray());
+                ks.load(fis, keyStorePass.toCharArray());
             } finally {
                 fis.close();
             }
@@ -94,7 +96,8 @@ public class CertificateManagerProvider {
     }
 
     protected Certificate[] getCertsFromKeyStore(KeyStore ks)
-        throws KeyStoreException {
+        throws KeyStoreException, UnrecoverableEntryException,
+        NoSuchAlgorithmException {
 
         int numOfCerts = ks.size();
         final Certificate[] certs = new Certificate[numOfCerts];
@@ -104,13 +107,44 @@ public class CertificateManagerProvider {
         }
 
         Enumeration<String> aliases = ks.aliases();
+        KeyStore.ProtectionParameter protParam =
+            new KeyStore.PasswordProtection("helloo".toCharArray());
 
         for(int i = 0; i < numOfCerts; i++) {
             String alias = aliases.nextElement();
-            System.out.println(alias);
+            X509Certificate x509Cert = (X509Certificate) ks.getCertificate(alias);
+            Principal subjectField = x509Cert.getSubjectDN();
+
+            Subject subject = parseSubjectField(subjectField);
+            KeyStore.PrivateKeyEntry pkEntry =
+                (KeyStore.PrivateKeyEntry) ks.getEntry(alias, protParam);
+            PrivateKey pk = pkEntry.getPrivateKey();
+
+            certs[i] = new Certificate(subject, pk);
         }
 
         return certs;
+    }
+
+    protected Subject parseSubjectField(Principal subjectField) {
+        String[] subjectKeys = subjectField.toString().split(",");
+        Subject subject = new Subject();
+
+        for(String pair : subjectKeys) {
+            String[] keyVal = pair.split("=");
+
+            if(keyVal[0].equals("CN")) {
+                subject.setCommonName(keyVal[1]);
+            } else if(keyVal[0].equals("O")) {
+                subject.setOrganization(keyVal[1]);
+            } else if(keyVal[0].equals("ST")) {
+                subject.setState(keyVal[1]);
+            } else if(keyVal[0].equals("C")) {
+                subject.setCountry(keyVal[1]);
+            }
+        }
+
+        return subject;
     }
 
     public static synchronized void dispose() {

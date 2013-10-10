@@ -7,6 +7,10 @@ public class CertificateManager {
         this.certs = certs;
     }
 
+    public Certificate[] getCerts() {
+        return certs;
+    }
+
     public boolean hasNoCertificates() {
         return certs.length == 0;
     }
