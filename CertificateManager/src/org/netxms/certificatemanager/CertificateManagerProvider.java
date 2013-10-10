@@ -11,14 +11,17 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class CertificateManagerProvider {
-    private static CertificateManager manager;
+    private static volatile CertificateManager manager;
 
-    private CertificateManagerProvider() {
+    private CertificateManagerProvider() {}
+
+    public static synchronized CertificateManager provideCertificateManager() {
+        if(manager != null) return manager;
+        manager = new CertificateManagerProvider().createCertificateManager();
+        return manager;
     }
 
-    public static CertificateManager provideCertificateManager() {
-        if(manager != null) return manager;
-
+    private CertificateManager createCertificateManager() {
         final String os = System.getProperty("os.name");
         final KeyStore keyStore;
         if(os.startsWith("Windows")) {
@@ -49,7 +52,7 @@ public class CertificateManagerProvider {
         return new CertificateManager(null);
     }
 
-    private static List<Certificate> getCertificates(KeyStore ks) {
+    private List<Certificate> getCertificates(KeyStore ks) {
         final Enumeration<String> aliases;
 
         try {
@@ -67,7 +70,7 @@ public class CertificateManagerProvider {
         return null;
     }
 
-    private static KeyStore getWindowsKeyStore()
+    private KeyStore getWindowsKeyStore()
         throws NoSuchProviderException, KeyStoreException,
         CertificateException, NoSuchAlgorithmException, IOException {
 
