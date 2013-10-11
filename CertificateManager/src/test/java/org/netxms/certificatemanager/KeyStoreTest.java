@@ -19,7 +19,7 @@ public class KeyStoreTest {
         keyStore = KeyStore.getInstance("PKCS12");
 
         FileInputStream fis = new FileInputStream(
-            testListener.requestKeyStoreLocation());
+            testListener.keyStoreLocationRequested());
 
         keyStore.load(fis, null);
 

@@ -2,15 +2,15 @@ package org.netxms.certificatemanager;
 
 public class Main {
     public static void main(String[] args) {
-        CertificateManager mgr = CertificateManagerProvider.provideCertificateManager(new CertificateManagerProviderListener() {
+        CertificateManager mgr = CertificateManagerProvider.provideCertificateManager(new CertificateManagerProviderRequestListener() {
             @Override
-            public String requestKeyStorePassword() {
-                return null;
+            public String keyStoreLocationRequested() {
+                return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
 
             @Override
-            public String requestKeyStoreLocation() {
-                return null;
+            public String keyStorePasswordRequested() {
+                return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
 

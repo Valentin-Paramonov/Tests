@@ -1,5 +1,7 @@
 package org.netxms.certificatemanager;
 
+import org.netxms.certificatemanager.subject.Subject;
+
 import java.security.PrivateKey;
 
 public class Certificate {

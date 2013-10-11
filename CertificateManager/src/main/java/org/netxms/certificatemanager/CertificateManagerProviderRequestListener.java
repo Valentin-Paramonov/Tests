@@ -1,0 +1,7 @@
+package org.netxms.certificatemanager;
+
+import org.netxms.certificatemanager.request.KeyStoreLocationRequestListener;
+import org.netxms.certificatemanager.request.PasswordRequestListener;
+
+public interface CertificateManagerProviderRequestListener
+extends KeyStoreLocationRequestListener, PasswordRequestListener {}
