@@ -1,4 +1,4 @@
-package org.netxms.certificatemanager.subject;
+package org.netxms.certificate.subject;
 
 public class SubjectParser {
     public static Subject parseSubject(String subjectString) {

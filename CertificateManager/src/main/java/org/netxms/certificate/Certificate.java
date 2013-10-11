@@ -1,6 +1,6 @@
-package org.netxms.certificatemanager;
+package org.netxms.certificate;
 
-import org.netxms.certificatemanager.subject.Subject;
+import org.netxms.certificate.subject.Subject;
 
 import java.security.PrivateKey;
 

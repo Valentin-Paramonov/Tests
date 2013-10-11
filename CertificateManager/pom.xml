@@ -7,7 +7,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>CertificateManager</artifactId>
+    <artifactId>certificate-manager</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
     <name>Certificate Manager</name>
@@ -34,7 +34,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.netxms.certificatemanager.Main</mainClass>
+                            <mainClass>org.netxms.certificate.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

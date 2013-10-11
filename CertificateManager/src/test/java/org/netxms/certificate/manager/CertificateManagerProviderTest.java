@@ -1,7 +1,8 @@
-package org.netxms.certificatemanager;
+package org.netxms.certificate.manager;
 
 import org.junit.After;
 import org.junit.Test;
+import org.netxms.certificate.TestListener;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;

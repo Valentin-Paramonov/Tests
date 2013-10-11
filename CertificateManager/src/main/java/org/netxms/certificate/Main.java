@@ -1,4 +1,8 @@
-package org.netxms.certificatemanager;
+package org.netxms.certificate;
+
+import org.netxms.certificate.manager.CertificateManager;
+import org.netxms.certificate.manager.CertificateManagerProvider;
+import org.netxms.certificate.manager.CertificateManagerProviderRequestListener;
 
 public class Main {
     public static void main(String[] args) {

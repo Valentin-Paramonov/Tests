@@ -1,9 +1,9 @@
-package org.netxms.certificatemanager.loader;
+package org.netxms.certificate.loader;
 
-import org.netxms.certificatemanager.Certificate;
-import org.netxms.certificatemanager.CertificateManagerProviderRequestListener;
-import org.netxms.certificatemanager.subject.Subject;
-import org.netxms.certificatemanager.subject.SubjectParser;
+import org.netxms.certificate.Certificate;
+import org.netxms.certificate.manager.CertificateManagerProviderRequestListener;
+import org.netxms.certificate.subject.Subject;
+import org.netxms.certificate.subject.SubjectParser;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

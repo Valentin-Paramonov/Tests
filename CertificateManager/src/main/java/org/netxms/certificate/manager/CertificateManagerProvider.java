@@ -1,8 +1,9 @@
-package org.netxms.certificatemanager;
+package org.netxms.certificate.manager;
 
-import org.netxms.certificatemanager.loader.KeyStoreLoader;
-import org.netxms.certificatemanager.loader.MSCKeyStoreLoader;
-import org.netxms.certificatemanager.loader.PKCS12KeyStoreLoader;
+import org.netxms.certificate.Certificate;
+import org.netxms.certificate.loader.KeyStoreLoader;
+import org.netxms.certificate.loader.MSCKeyStoreLoader;
+import org.netxms.certificate.loader.PKCS12KeyStoreLoader;
 
 public class CertificateManagerProvider {
     private static volatile CertificateManager manager;

@@ -1,4 +1,6 @@
-package org.netxms.certificatemanager;
+package org.netxms.certificate.manager;
+
+import org.netxms.certificate.Certificate;
 
 public class CertificateManager {
     private final Certificate[] certs;

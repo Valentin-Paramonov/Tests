@@ -1,4 +1,4 @@
-package org.netxms.certificatemanager.subject;
+package org.netxms.certificate.subject;
 
 public class Subject {
     private String commonName;

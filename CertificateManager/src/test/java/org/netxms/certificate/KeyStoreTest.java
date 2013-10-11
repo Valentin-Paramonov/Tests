@@ -1,4 +1,4 @@
-package org.netxms.certificatemanager;
+package org.netxms.certificate;
 
 import org.junit.Before;
 import org.junit.Test;

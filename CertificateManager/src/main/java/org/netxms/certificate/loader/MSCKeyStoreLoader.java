@@ -1,6 +1,6 @@
-package org.netxms.certificatemanager.loader;
+package org.netxms.certificate.loader;
 
-import org.netxms.certificatemanager.Certificate;
+import org.netxms.certificate.Certificate;
 
 import java.io.IOException;
 import java.security.KeyStore;
